@@ -1,0 +1,7 @@
+# Ignoramos las claves generadas
+
+Ansible_Server/keys
+
+# Ignoramos el fichero de authorized_keys
+
+Ansible_Node/authorized_key

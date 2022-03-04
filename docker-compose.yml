@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  ansible_server:
+    container_name: Ansible_Server
+    build: ./Ansible_Server
+    image: ansibleserver:v1
+    expose:
+      - "22"
+    volumes:
+      - ./Ansible_Server/keys:/home/ansible-server/.ssh
+    networks:
+      red_proyec_ansible:
+        ipv4_address: 192.168.10.10
+  
+  ansible_nodo:
+    container_name: Ansible_Node
+    build: ./Ansible_Node
+    image: ansiblenode:v1
+    volumes:
+      - ./Ansible_Node/authorized_key:/home/ansible-node/.ssh/authorized_keys
+      - ./Ansible_Node/sshd_config:/etc/ssh/sshd_config
+    expose:
+      - "22"
+    networks:
+      red_proyec_ansible:
+        ipv4_address: 192.168.10.11
+
+networks:
+    red_proyec_ansible:
+        ipam:
+            config:
+              - subnet: 192.168.10.0/24
